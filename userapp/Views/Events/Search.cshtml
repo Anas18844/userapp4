@@ -1,0 +1,88 @@
+﻿@using System.Linq
+@model List<userapp.Models.Event>
+@{
+    ViewData["Title"] = "Search & Filter";
+}
+
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4 text-primary">Search & Filter Events</h1>
+        <p class="lead">Find the perfect event tailored to your interests</p>
+    </div>
+
+    <!-- Search Form -->
+    <div class="card shadow-lg mb-5">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label for="searchTerm" class="form-label fw-bold">Search Term:</label>
+                    <input type="text" id="searchTerm" name="searchTerm" class="form-control" placeholder="Enter keyword..." />
+                </div>
+
+                <div class="col-md-4">
+                    <label for="category" class="form-label fw-bold">Category:</label>
+                    <select id="category" name="category" class="form-select">
+                        <option value="">--Select Category--</option>
+                        <option value="Programming">Programming</option>
+                        <option value="Business">Business</option>
+                        <option value="Technology">Technology</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="date" class="form-label fw-bold">Date:</label>
+                    <input type="date" id="date" name="date" class="form-control" />
+                </div>
+
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary px-5">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    @if (Model != null && Model.Any())
+    {
+        <div class="mt-4">
+            <h3 class="text-center text-secondary">Search Results</h3>
+            <table class="table table-hover table-bordered shadow-sm mt-3">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var eventItem in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-controller="Events" asp-action="Details" asp-route-id="@eventItem.Id" class="text-decoration-none text-primary fw-bold">
+                                    @eventItem.Title
+                                </a>
+                            </td>
+                            <td>@eventItem.EventType</td>
+                            <td>@eventItem.StartDate.ToShortDateString()</td>
+                            <td>
+                                @eventItem.Description.Substring(0, Math.Min(50, @eventItem.Description.Length))...
+                            </td>
+                            <td>
+                                <a asp-controller="Events" asp-action="EventDetails" asp-route-id="@eventItem.Id" class="btn btn-primary">Book Now</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-4" role="alert">
+            No events found matching your criteria.
+        </div>
+    }
+</div>

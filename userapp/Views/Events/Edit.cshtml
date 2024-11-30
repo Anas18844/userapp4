@@ -1,0 +1,105 @@
+﻿@model userapp.Models.Event
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<style>
+    .btn-gradient-save {
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 18px;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .btn-gradient-save:hover {
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+</style>
+
+<div class="container my-5">
+    <div class="card shadow-lg border-0" style="background: linear-gradient(to bottom, #cfd9df, #e2ebf0);">
+        <div class="card-header text-center text-white py-4" style="background: linear-gradient(to right, #6a11cb, #2575fc);">
+            <h2 class="fw-bold">Edit Event</h2>
+        </div>
+        <div class="card-body py-4 px-5">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <!-- Form fields -->
+                <div class="row gy-4">
+                    <div class="col-md-6">
+                        <label asp-for="Title" class="form-label fw-bold">Title</label>
+                        <input asp-for="Title" class="form-control shadow-sm border-secondary" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="StartDate" class="form-label fw-bold">Start Date</label>
+                        <input asp-for="StartDate" class="form-control shadow-sm border-secondary" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="EndDate" class="form-label fw-bold">End Date</label>
+                        <input asp-for="EndDate" class="form-control shadow-sm border-secondary" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Description" class="form-label fw-bold">Description</label>
+                        <input asp-for="Description" class="form-control shadow-sm border-secondary" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="EventType" class="form-label fw-bold">Event Type</label>
+                        <input asp-for="EventType" class="form-control shadow-sm border-secondary" />
+                        <span asp-validation-for="EventType" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Capacity" class="form-label fw-bold">Capacity</label>
+                        <input asp-for="Capacity" class="form-control shadow-sm border-secondary" />
+                        <span asp-validation-for="Capacity" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Country" class="form-label fw-bold">Country</label>
+                        <input asp-for="Country" class="form-control shadow-sm border-secondary" />
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="City" class="form-label fw-bold">City</label>
+                        <input asp-for="City" class="form-control shadow-sm border-secondary" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Language" class="form-label fw-bold">Language</label>
+                        <input asp-for="Language" class="form-control shadow-sm border-secondary" />
+                        <span asp-validation-for="Language" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-gradient-save fw-bold btn-lg px-5">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center" style="background: linear-gradient(to right, #6a11cb, #2575fc);">
+            <a asp-action="Index" class="btn btn-outline-light fw-bold px-4">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

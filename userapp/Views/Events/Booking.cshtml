@@ -1,0 +1,75 @@
+﻿@model userapp.Models.Event
+@{
+    ViewData["Title"] = "Ticket Booking Form";
+}
+
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4 text-primary">Book Your Ticket for @Model.Title</h1>
+        <p class="lead">Fill in the details to book your ticket</p>
+    </div>
+
+    <!-- Event Details -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <p><strong>Date:</strong> @Model.StartDate.ToString("MMMM dd, yyyy") - @Model.EndDate.ToString("MMMM dd, yyyy")</p>
+            <p><strong>Location:</strong> @Model.City</p>
+            <p><strong>Tickets Available:</strong> @Model.Capacity</p>
+        </div>
+    </div>
+
+    <!-- Ticket Booking Form -->
+    <form method="get" action="@Url.Action("Payment", "Events", new { id = Model.Id })">
+        @Html.AntiForgeryToken()
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="fullName" class="form-label">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email Address:</label>
+                <input type="email" id="email" name="email" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="numberOfTickets" class="form-label">Number of Tickets:</label>
+                <input type="number" id="numberOfTickets" name="numberOfTickets" class="form-control" min="1" max="@Model.Capacity" required oninput="updateTotalPrice()" />
+            </div>
+            <div class="col-md-6">
+                <label for="ticketType" class="form-label">Ticket Type:</label>
+                <select id="ticketType" name="ticketType" class="form-select" required>
+                    <option value="" disabled selected>Select Ticket Type</option>
+                    <option value="Standard" data-price="@Model.RegularPrice">Standard - $@Model.RegularPrice</option>
+                    <option value="VIP" data-price="@Model.VIPPrice">VIP - $@Model.VIPPrice</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="totalPrice" class="form-label">Total Price:</label>
+                <input type="text" id="totalPrice" name="totalPrice" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="col-12 text-end">
+            <!-- زر الدفع -->
+            <button type="submit" class="btn btn-success px-5">Proceed to Payment</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function updateTotalPrice() {
+        const ticketType = document.getElementById("ticketType");
+        const numberOfTickets = document.getElementById("numberOfTickets").value || 0;
+        const selectedOption = ticketType.options[ticketType.selectedIndex];
+        const ticketPrice = selectedOption.getAttribute("data-price") || 0;
+
+        const totalPrice = numberOfTickets * ticketPrice;
+        document.getElementById("totalPrice").value = `$${totalPrice.toFixed(2)}`;
+    }
+</script>

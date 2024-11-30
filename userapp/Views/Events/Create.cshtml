@@ -1,0 +1,128 @@
+﻿@model userapp.Models.Event
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<head>
+    <style>
+        .container {
+            background: linear-gradient(to bottom right, #ffffff, #dfe9f3);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+    </style>
+</head>
+
+
+<h1 class="text-center mb-4" style="color: #ffffff; background: linear-gradient(to right, #1f4037, #99f2c8); padding: 20px; border-radius: 10px;">
+    Create New Event
+</h1>
+
+<div class="container py-4" style="background-color: #f8f9fa; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Title -->
+                <div class="form-group mb-3">
+                    <label asp-for="Title" class="form-label">Event Title</label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <!-- Start Date -->
+                <div class="form-group mb-3">
+                    <label asp-for="StartDate" class="form-label">Start Date</label>
+                    <input asp-for="StartDate" class="form-control" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+
+                <!-- End Date -->
+                <div class="form-group mb-3">
+                    <label asp-for="EndDate" class="form-label">End Date</label>
+                    <input asp-for="EndDate" class="form-control" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <!-- Event Type -->
+                <div class="form-group mb-3">
+                    <label asp-for="EventType" class="form-label">Event Type</label>
+                    <input asp-for="EventType" class="form-control" />
+                    <span asp-validation-for="EventType" class="text-danger"></span>
+                </div>
+
+                <!-- Capacity -->
+                <div class="form-group mb-3">
+                    <label asp-for="Capacity" class="form-label">Capacity</label>
+                    <input asp-for="Capacity" class="form-control" type="number" min="1" />
+                    <span asp-validation-for="Capacity" class="text-danger"></span>
+                </div>
+
+                <!-- Location -->
+                <div class="form-group mb-3">
+                    <label asp-for="Country" class="form-label">Country</label>
+                    <input asp-for="Country" class="form-control" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="City" class="form-label">City</label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <!-- Language -->
+                <div class="form-group mb-3">
+                    <label asp-for="Language" class="form-label">Language</label>
+                    <input asp-for="Language" class="form-control" />
+                    <span asp-validation-for="Language" class="text-danger"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success px-5 py-2" style="background: linear-gradient(to right, #1f4037, #99f2c8); border: none; color: white;">
+                        <i class="fas fa-save"></i> Create
+                    </button>
+                </div>
+            </form>
+            <div class="text-center mt-4">
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    /* تحسين المظهر العام */
+    body {
+        background-color: #e9ecef;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: #1f4037;
+    }
+
+    .btn-success:hover {
+        background: #99f2c8;
+    }
+
+    .container {
+        padding: 20px;
+    }
+</style>

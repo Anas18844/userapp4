@@ -1,0 +1,125 @@
+﻿@model IEnumerable<userapp.Models.Event>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    /* تصميم العناوين */
+    h1 {
+        font-size: 2.5rem;
+        color: #0072ff;
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    /* زر Create New */
+    .btn-create {
+        background: linear-gradient(to right, #ff7e5f, #feb47b);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 18px;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+        display: inline-block;
+    }
+
+        .btn-create:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+    /* جدول مخصص */
+    table.table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        table.table th, table.table td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        table.table th {
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        table.table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        table.table tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        table.table tr:hover {
+            background: #f1faff;
+            transition: background 0.3s ease-in-out;
+        }
+
+    /* الروابط */
+    a {
+        color: #0072ff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+</style>
+
+<h1>Events List</h1>
+
+<p class="text-center">
+    <a asp-action="Create" class="btn-create">+ Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+            <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <th>@Html.DisplayNameFor(model => model.EventType)</th>
+            <th>@Html.DisplayNameFor(model => model.Capacity)</th>
+            <th>@Html.DisplayNameFor(model => model.Country)</th>
+            <th>@Html.DisplayNameFor(model => model.City)</th>
+            <th>@Html.DisplayNameFor(model => model.Language)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.EventType)</td>
+                <td>@Html.DisplayFor(modelItem => item.Capacity)</td>
+                <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                <td>@Html.DisplayFor(modelItem => item.City)</td>
+                <td>@Html.DisplayFor(modelItem => item.Language)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+﻿@model userapp.Models.Event
+
+@{
+    ViewData["Title"] = "Event Details";
+}
+
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4 text-primary">@Model.Title</h1>
+        <p class="lead">@Model.EventType</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4 class="fw-bold">Event Details</h4>
+            <p><strong>Date:</strong> @Model.StartDate.ToString("MMMM dd, yyyy") - @Model.EndDate.ToString("MMMM dd, yyyy")</p>
+            <p><strong>Location:</strong> @Model.City</p>
+            <p><strong>Description:</strong> @Model.Description</p>
+            <p><strong>Tickets Available:</strong> @Model.Capacity</p>
+        </div>
+
+        <div class="col-md-4">
+            <h4 class="fw-bold">Booking</h4>
+            <form method="get" action="@Url.Action("Booking", "Events", new { id = Model.Id })">
+                <button type="submit" class="btn btn-primary w-100">Book Your Ticket</button>
+            </form>
+        </div>
+    </div>
+</div>
