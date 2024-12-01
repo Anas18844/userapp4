@@ -1,66 +1,125 @@
 ﻿@model userapp.Models.Event
+
 @{
     ViewData["Title"] = "Ticket Booking Form";
 }
 
 <div class="container my-5">
-    <div class="text-center mb-4">
-        <h1 class="display-4 text-primary">Book Your Ticket for @Model.Title</h1>
-        <p class="lead">Fill in the details to book your ticket</p>
+    <!-- عنوان الحجز -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-primary fw-bold animate__animated animate__zoomIn">Book Your Ticket for <span class="text-success">@Model.Title</span></h1>
+        <p class="lead text-secondary animate__animated animate__fadeInUp">Secure your seat and enjoy the event!</p>
     </div>
 
-    <!-- Event Details -->
-    <div class="row mb-4">
+    <!-- تفاصيل الحدث -->
+    <div class="row g-4 mb-5">
         <div class="col-md-8">
-            <p><strong>Date:</strong> @Model.StartDate.ToString("MMMM dd, yyyy") - @Model.EndDate.ToString("MMMM dd, yyyy")</p>
-            <p><strong>Location:</strong> @Model.City</p>
-            <p><strong>Tickets Available:</strong> @Model.Capacity</p>
+            <div class="card shadow-lg border-0 animate__animated animate__fadeInLeft">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Event Details</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Date:</strong> 
+                            @Model.StartDate.ToString("MMMM dd, yyyy") - @Model.EndDate.ToString("MMMM dd, yyyy")
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Location:</strong> @Model.City
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Tickets Available:</strong> 
+                            <span class="text-success fw-bold">@Model.Capacity</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Ticket Booking Form -->
-    <form method="get" action="@Url.Action("Payment", "Events", new { id = Model.Id })">
-        @Html.AntiForgeryToken()
-
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="fullName" class="form-label">Full Name:</label>
-                <input type="text" id="fullName" name="fullName" class="form-control" required />
-            </div>
-            <div class="col-md-6">
-                <label for="email" class="form-label">Email Address:</label>
-                <input type="email" id="email" name="email" class="form-control" required />
-            </div>
+    <!-- نموذج الحجز -->
+    <div class="card shadow-lg border-0 animate__animated animate__fadeInUp">
+        <div class="card-header bg-success text-white text-center">
+            <h4 class="mb-0">Booking Form</h4>
         </div>
+        <div class="card-body">
+            <form method="get" action="@Url.Action("Payment", "Events", new { id = Model.Id })">
+                @Html.AntiForgeryToken()
 
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="numberOfTickets" class="form-label">Number of Tickets:</label>
-                <input type="number" id="numberOfTickets" name="numberOfTickets" class="form-control" min="1" max="@Model.Capacity" required oninput="updateTotalPrice()" />
-            </div>
-            <div class="col-md-6">
-                <label for="ticketType" class="form-label">Ticket Type:</label>
-                <select id="ticketType" name="ticketType" class="form-select" required>
-                    <option value="" disabled selected>Select Ticket Type</option>
-                    <option value="Standard" data-price="@Model.RegularPrice">Standard - $@Model.RegularPrice</option>
-                    <option value="VIP" data-price="@Model.VIPPrice">VIP - $@Model.VIPPrice</option>
-                </select>
-            </div>
-        </div>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="fullName" class="form-label fw-bold">Full Name:</label>
+                        <input type="text" id="fullName" name="fullName" class="form-control border-primary" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label fw-bold">Email Address:</label>
+                        <input type="email" id="email" name="email" class="form-control border-primary" required />
+                    </div>
+                </div>
 
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="totalPrice" class="form-label">Total Price:</label>
-                <input type="text" id="totalPrice" name="totalPrice" class="form-control" readonly />
-            </div>
-        </div>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="numberOfTickets" class="form-label fw-bold">Number of Tickets:</label>
+                        <input type="number" id="numberOfTickets" name="numberOfTickets" class="form-control border-primary" min="1" max="@Model.Capacity" required oninput="updateTotalPrice()" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ticketType" class="form-label fw-bold">Ticket Type:</label>
+                        <select id="ticketType" name="ticketType" class="form-select border-primary" required>
+                            <option value="" disabled selected>Select Ticket Type</option>
+                            <option value="Standard" data-price="@Model.RegularPrice">Standard - $@Model.RegularPrice</option>
+                            <option value="VIP" data-price="@Model.VIPPrice">VIP - $@Model.VIPPrice</option>
+                        </select>
+                    </div>
+                </div>
 
-        <div class="col-12 text-end">
-            <!-- زر الدفع -->
-            <button type="submit" class="btn btn-success px-5">Proceed to Payment</button>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="totalPrice" class="form-label fw-bold">Total Price:</label>
+                        <input type="text" id="totalPrice" name="totalPrice" class="form-control border-primary" readonly />
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-lg shadow px-5 py-3 btn-animated">
+                        Proceed to Payment <i class="bi bi-arrow-right-circle-fill ms-2"></i>
+                    </button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
+
+<!-- إضافة مكتبة Animate.css -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+<!-- أيقونات Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+<!-- تأثيرات إضافية باستخدام CSS -->
+<style>
+    body {
+        background: linear-gradient(to bottom right, #ffffff, #e9ecef);
+    }
+    .btn-animated {
+        transition: transform 0.3s, background-color 0.3s;
+    }
+    .btn-animated:hover {
+        transform: scale(1.1);
+        background-color: #218838;
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: #198754;
+        box-shadow: 0 0 5px rgba(33, 136, 56, 0.8);
+    }
+    .card {
+        border-radius: 15px;
+    }
+    .card-header {
+        border-radius: 15px 15px 0 0;
+    }
+    .card-body {
+        border-radius: 0 0 15px 15px;
+    }
+</style>
 
 <script>
     function updateTotalPrice() {

@@ -5,25 +5,86 @@
 }
 
 <div class="container my-5">
-    <div class="text-center mb-4">
-        <h1 class="display-4 text-primary">@Model.Title</h1>
-        <p class="lead">@Model.EventType</p>
+    <!-- عنوان الحدث -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-primary fw-bold animate__animated animate__fadeInDown">@Model.Title</h1>
+        <p class="lead text-secondary fst-italic animate__animated animate__fadeInUp">@Model.EventType</p>
     </div>
 
-    <div class="row">
+    <div class="row g-4">
+        <!-- تفاصيل الحدث -->
         <div class="col-md-8">
-            <h4 class="fw-bold">Event Details</h4>
-            <p><strong>Date:</strong> @Model.StartDate.ToString("MMMM dd, yyyy") - @Model.EndDate.ToString("MMMM dd, yyyy")</p>
-            <p><strong>Location:</strong> @Model.City</p>
-            <p><strong>Description:</strong> @Model.Description</p>
-            <p><strong>Tickets Available:</strong> @Model.Capacity</p>
+            <div class="card shadow-lg border-0 animate__animated animate__fadeInLeft">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Event Details</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Date:</strong>
+                            @Model.StartDate.ToString("MMMM dd, yyyy") - @Model.EndDate.ToString("MMMM dd, yyyy")
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Location:</strong> @Model.City
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Description:</strong> @Model.Description
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Tickets Available:</strong>
+                            <span class="text-success fw-bold">@Model.Capacity</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
+        <!-- جزء الحجز -->
         <div class="col-md-4">
-            <h4 class="fw-bold">Booking</h4>
-            <form method="get" action="@Url.Action("Booking", "Events", new { id = Model.Id })">
-                <button type="submit" class="btn btn-primary w-100">Book Your Ticket</button>
-            </form>
+            <div class="card shadow-lg border-0 animate__animated animate__fadeInRight">
+                <div class="card-header bg-success text-white text-center">
+                    <h4 class="mb-0">Book Your Ticket</h4>
+                </div>
+                <div class="card-body text-center">
+                    <i class="bi bi-ticket-fill display-1 text-success mb-3"></i>
+                    <form method="get" action="@Url.Action("Booking", "Events", new { id = Model.Id })">
+                        <button type="submit" class="btn btn-success btn-lg w-100 shadow btn-animated">Reserve Now</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- إضافة مكتبة Animate.css -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+<!-- أيقونات Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+<!-- تأثيرات إضافية باستخدام CSS -->
+<style>
+    body {
+        background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+    }
+
+    .btn-animated {
+        transition: transform 0.3s, background-color 0.3s;
+    }
+
+        .btn-animated:hover {
+            transform: scale(1.05);
+            background-color: #28a745;
+        }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0;
+    }
+
+    .card-body {
+        border-radius: 0 0 15px 15px;
+    }
+</style>

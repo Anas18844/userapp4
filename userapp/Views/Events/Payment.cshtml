@@ -18,7 +18,7 @@
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        background: #f4f4f4; /* تغيير لون الخلفية ليبدو أكثر نظافة */
+        background: #f4f4f4;
         padding: 25px;
     }
 
@@ -27,13 +27,13 @@
             padding: 40px;
             background: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* إضافة الظل */
-            border: 1px solid #e0e0e0; /* إضافة حد رقيق حول الصندوق */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+            border: 1px solid #e0e0e0; 
         }
 
     form .row {
         display: flex;
-        gap: 20px; /* زيادة التباعد بين الأعمدة */
+        gap: 20px; 
         flex-wrap: wrap;
     }
 
@@ -45,11 +45,11 @@
         font-size: 20px;
         color: #333;
         text-transform: uppercase;
-        margin-bottom: 10px; /* زيادة المسافة بين العنوان والمحتوى */
+        margin-bottom: 10px; 
     }
 
     .column .input-box {
-        margin: 20px 0; /* زيادة المسافة بين الحقول */
+        margin: 20px 0; 
     }
 
     .input-box span {
@@ -69,13 +69,13 @@
     }
 
         .input-box input:focus {
-            border-color: #8175d3; /* تغيير لون الحدود عند التحديد */
+            border-color: #8175d3;
             outline: none;
         }
 
     .column .flex {
         display: flex;
-        gap: 20px; /* زيادة التباعد بين العناصر في العمود */
+        gap: 20px; 
     }
 
     .flex .input-box {
@@ -97,7 +97,7 @@
         border-radius: 6px;
         font-size: 17px;
         color: #fff;
-        margin-top: 20px; /* زيادة المسافة بين الزر وبقية العناصر */
+        margin-top: 20px;
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
@@ -114,10 +114,10 @@
         <form action="">
             <div class="row">
                 <div class="column">
-                    <h3 class="title">Billing Address</h3>
+                    <h3 class="title">Ticket Address</h3>
                     <div class="input-box">
                         <span>Full Name :</span>
-                        <input type="text" placeholder="Jacob Aiden">
+                        <input type="text" placeholder="Gamal Ahmed">
                     </div>
                     <div class="input-box">
                         <span>Email :</span>
@@ -129,13 +129,13 @@
                     </div>
                     <div class="input-box">
                         <span>City :</span>
-                        <input type="text" placeholder="Berlin">
+                        <input type="text" placeholder="Cairo">
                     </div>
 
                     <div class="flex">
                         <div class="input-box">
                             <span>State :</span>
-                            <input type="text" placeholder="Germany">
+                            <input type="text" placeholder="Egypt">
                         </div>
                         <div class="input-box">
                             <span>Zip Code :</span>
@@ -152,7 +152,7 @@
                     </div>
                     <div class="input-box">
                         <span>Name On Card :</span>
-                        <input type="text" placeholder="Mr. Jacob Aiden">
+                        <input type="text" placeholder="Mr. Gamal Ahmed">
                     </div>
                     <div class="input-box">
                         <span>Credit Card Number :</span>
@@ -185,7 +185,7 @@
 
 <script>
     document.querySelector('#confirmButton').addEventListener('click', function (event) {
-        event.preventDefault(); // إلغاء تقديم النموذج بشكل افتراضي
+        event.preventDefault(); 
 
         // استرجاع الـid من الحقل المخفي
         var bookingId = document.querySelector('#bookingId').value;
