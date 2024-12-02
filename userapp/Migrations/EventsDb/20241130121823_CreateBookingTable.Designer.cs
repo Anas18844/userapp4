@@ -45,14 +45,6 @@ namespace userapp.Migrations.EventsDb
                     b.Property<int>("NumberOfTickets")
                         .HasColumnType("int");
 
-                    b.Property<string>("PaymentDetails")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PaymentMethod")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("TicketType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

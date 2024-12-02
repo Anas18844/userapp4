@@ -1,22 +1,36 @@
-﻿using userapp.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Migrations;
+using userapp.Models;
 
-public class Booking
+namespace userapp.Models
 {
-    public int Id { get; set; } // رقم الحجز
+    public class Booking
+    {
+        public int Id { get; set; }
 
-    public int EventId { get; set; } // الحدث المرتبط بالحجز
-    public Event Event { get; set; } // ربط الحدث
+        public int EventId { get; set; }
+        public Event Event { get; set; }
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
+        public Users User { get; set; }
 
-    public string UserId { get; set; } // معرف المستخدم (المستفيد من الحجز)
-    public Users User { get; set; } // ربط المستخدم (يجب أن يكون لديك كلاس ApplicationUser للمستخدمين)
+        public string FullName { get; set; }
+        public string Email { get; set; }
 
-    public string FullName { get; set; } // اسم المستخدم الذي قام بالحجز
-    public string Email { get; set; } // البريد الإلكتروني لتأكيد الحجز
+        public int NumberOfTickets { get; set; }
+        public string TicketType { get; set; }
+        public decimal TotalPrice { get; set; }
 
-    public int NumberOfTickets { get; set; } // عدد التذاكر
-    public string TicketType { get; set; } // نوع التذكرة (VIP، عادية)
-    public decimal TotalPrice { get; set; } // السعر الإجمالي
+        public DateTime BookingDate { get; set; }
 
-    public DateTime BookingDate { get; set; } // تاريخ الحجز
+        public int? DeliveryInfoId { get; set; }
+        public DeliveryInfo DeliveryInfo { get; set; }
 
+        public int? PaymentDetailsId { get; set; }
+        public PaymentDetails PaymentDetails { get; set; }
+
+
+    }
 }
+
+

@@ -111,39 +111,40 @@
 
 <body>
     <div class="PaymentContainer">
-        <form action="">
+        <form method="post" action="/Events/SubmitPaymentAndDelivery">
             <div class="row">
+                <!-- قسم بيانات التوصيل -->
                 <div class="column">
                     <h3 class="title">Ticket Address</h3>
                     <div class="input-box">
                         <span>Full Name :</span>
-                        <input type="text" placeholder="Gamal Ahmed">
+                        <input type="text" name="FullName" placeholder="Gamal Ahmed" required>
                     </div>
                     <div class="input-box">
                         <span>Email :</span>
-                        <input type="email" placeholder="example@example.com">
+                        <input type="email" name="Email" placeholder="example@example.com" required>
                     </div>
                     <div class="input-box">
                         <span>Address :</span>
-                        <input type="text" placeholder="Room - Street - Locality">
+                        <input type="text" name="Address" placeholder="Room - Street - Locality" required>
                     </div>
                     <div class="input-box">
                         <span>City :</span>
-                        <input type="text" placeholder="Cairo">
+                        <input type="text" name="City" placeholder="Cairo" required>
                     </div>
-
                     <div class="flex">
                         <div class="input-box">
                             <span>State :</span>
-                            <input type="text" placeholder="Egypt">
+                            <input type="text" name="State" placeholder="Egypt" required>
                         </div>
                         <div class="input-box">
                             <span>Zip Code :</span>
-                            <input type="number" placeholder="123 456">
+                            <input type="number" name="ZipCode" placeholder="123 456" required>
                         </div>
                     </div>
                 </div>
 
+                <!-- قسم بيانات الدفع -->
                 <div class="column">
                     <h3 class="title">Payment</h3>
                     <div class="input-box">
@@ -152,51 +153,31 @@
                     </div>
                     <div class="input-box">
                         <span>Name On Card :</span>
-                        <input type="text" placeholder="Mr. Gamal Ahmed">
+                        <input type="text" name="CardHolder" placeholder="Mr. Gamal Ahmed" required>
                     </div>
                     <div class="input-box">
                         <span>Credit Card Number :</span>
-                        <input type="number" placeholder="1111 2222 3333 4444">
+                        <input type="number" name="CardNumber" placeholder="1111 2222 3333 4444" required>
                     </div>
                     <div class="input-box">
                         <span>Exp. Month :</span>
-                        <input type="text" placeholder="August">
+                        <input type="text" name="ExpMonth" placeholder="August" required>
                     </div>
-
                     <div class="flex">
                         <div class="input-box">
                             <span>Exp. Year :</span>
-                            <input type="number" placeholder="2025">
+                            <input type="number" name="ExpYear" placeholder="2025" required>
                         </div>
                         <div class="input-box">
                             <span>CVV :</span>
-                            <input type="number" placeholder="123">
+                            <input type="number" name="CVV" placeholder="123" required>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <button type="submit" class="btn" id="confirmButton">Submit</button>
+            <button type="submit" class="btn">Submit</button>
         </form>
     </div>
 </body>
-
-
-
-<script>
-    document.querySelector('#confirmButton').addEventListener('click', function (event) {
-        event.preventDefault(); 
-
-        // استرجاع الـid من الحقل المخفي
-        var bookingId = document.querySelector('#bookingId').value;
-
-        if (bookingId) {
-            // إعادة التوجيه إلى صفحة BookingConfirmation مع الـid
-            window.location.href = "/Events/BookingConfirmation/" + bookingId;
-        } else {
-            alert("Booking ID is missing");
-        }
-    });
-    });
-</script>
 

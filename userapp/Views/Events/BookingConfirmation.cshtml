@@ -2,14 +2,103 @@
     ViewData["Title"] = "Booking Confirmation";
 }
 
-<h1>Booking Confirmation</h1>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+    }
 
-<p>Thank you for booking your tickets! Your booking has been confirmed.</p>
+    .container {
+        margin: 50px auto;
+        padding: 40px;
+        max-width: 700px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        animation: fadeIn 1s ease-out;
+    }
 
-<p>
-    <strong>Event:</strong> @ViewData["EventName"] <br />
-    <strong>Number of Tickets:</strong> @ViewData["NumberOfTickets"] <br />
-    <strong>Total Price:</strong> @ViewData["TotalPrice"] <br />
-</p>
+    h2 {
+        color: #4CAF50;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
 
-<a href="/">Return to Home</a>
+    .message {
+        font-size: 1.2rem;
+        color: #555;
+        margin-bottom: 30px;
+        font-weight: 500;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        color: #fff;
+        background-color: #007bff;
+        text-decoration: none;
+        border-radius: 50px;
+        margin: 10px;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-4px);
+        }
+
+    .btn-primary {
+        background-color: #28a745;
+    }
+
+        .btn-primary:hover {
+            background-color: #218838;
+        }
+
+    .btn-secondary {
+        background-color: #f0ad4e;
+    }
+
+        .btn-secondary:hover {
+            background-color: #ec971f;
+        }
+
+
+    {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    hr {
+        border-top: 1px solid #eee;
+        margin: 20px auto;
+        width: 80%;
+    }
+</style>
+
+<div class="container">
+    <h2>Booking Confirmation</h2>
+    <div class="message">
+        <p>Your booking has been successfully confirmed!</p>
+        <p>Thank you for your reservation. We look forward to seeing you at the event!</p>
+    </div>
+
+    <hr />
+
+    <div class="actions">
+        <a href="/" class="btn btn-primary">Go to Home</a>
+        <a href="/Events/Search" class="btn btn-secondary">Find More Events</a>
+    </div>
+</div>
