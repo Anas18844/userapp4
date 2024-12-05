@@ -1,6 +1,68 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="privacy-policy-container">
+    <h1 class="page-title">@ViewData["Title"]</h1>
+
+    <section class="privacy-section">
+        <p>Welcome to our Privacy Policy page! Your privacy is important to us, and we are committed to protecting the information you share with us. This document explains how we handle your data.</p>
+
+        <h2>1. Information We Collect</h2>
+        <p>We may collect personal information such as your name, email address, and any data you provide when using our services.</p>
+
+        <h2>2. How We Use Your Information</h2>
+        <p>Your information helps us improve our services, provide personalized experiences, and communicate important updates.</p>
+
+        <h2>3. Data Security</h2>
+        <p>We take appropriate measures to protect your information from unauthorized access, loss, or misuse.</p>
+
+        <h2>4. Your Rights</h2>
+        <p>You have the right to access, modify, or delete your data at any time. Contact us if you have concerns.</p>
+
+        <p>If you have further questions, feel free to <a href="/contact">contact us</a>.</p>
+    </section>
+</div>
+
+<style>
+    .privacy-policy-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+
+    .page-title {
+        text-align: center;
+        font-size: 2.5em;
+        color: #4CAF50;
+        margin-bottom: 20px;
+    }
+
+    .privacy-section h2 {
+        margin-top: 20px;
+        font-size: 1.8em;
+        color: #2c3e50;
+    }
+
+    .privacy-section p {
+        line-height: 1.6;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+    }
+
+    .privacy-section a {
+        color: #3498db;
+        text-decoration: none;
+    }
+
+        .privacy-section a:hover {
+            text-decoration: underline;
+        }
+</style>
+

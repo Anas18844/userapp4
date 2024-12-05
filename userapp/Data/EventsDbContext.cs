@@ -24,12 +24,12 @@ public class EventsDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // تأكيد وجود العلاقة بين جدول Bookings و Users
+        
         modelBuilder.Entity<Booking>()
-            .HasOne(b => b.User)      // الحجز مرتبط بمستخدم واحد
-            .WithMany()               // يمكن أن يكون لدى المستخدم العديد من الحجوزات
-            .HasForeignKey(b => b.UserId)  // UserId هو المفتاح الخارجي
-            .OnDelete(DeleteBehavior.Cascade);  // (اختياري) عند حذف المستخدم، يتم حذف الحجوزات المرتبطة به
+            .HasOne(b => b.User)      
+            .WithMany()               
+            .HasForeignKey(b => b.UserId) 
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
 }

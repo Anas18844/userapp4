@@ -4,101 +4,154 @@
 
 <style>
     body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f7f7f7;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to bottom right, #eef2f3, #8e9eab);
         margin: 0;
         padding: 0;
+        overflow-x: hidden;
     }
 
     .container {
-        margin: 50px auto;
-        padding: 40px;
-        max-width: 700px;
+        margin: 100px auto;
+        padding: 30px;
+        max-width: 800px;
         background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         text-align: center;
-        animation: fadeIn 1s ease-out;
+        position: relative;
     }
 
     h2 {
-        color: #4CAF50;
-        font-size: 2.5rem;
+        font-size: 3rem;
+        color: #2ecc71;
+        font-weight: 700;
         margin-bottom: 20px;
-        font-weight: bold;
     }
 
-    .message {
+    .message p {
         font-size: 1.2rem;
-        color: #555;
-        margin-bottom: 30px;
-        font-weight: 500;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 20px;
     }
 
     .btn {
         display: inline-block;
-        padding: 12px 30px;
-        font-size: 1.1rem;
+        padding: 15px 40px;
+        font-size: 1.2rem;
         color: #fff;
-        background-color: #007bff;
         text-decoration: none;
-        border-radius: 50px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
         margin: 10px;
-        transition: transform 0.3s ease, background-color 0.3s ease;
     }
 
-        .btn:hover {
-            background-color: #0056b3;
-            transform: translateY(-4px);
-        }
-
     .btn-primary {
-        background-color: #28a745;
+        background: #3498db;
+        box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
     }
 
         .btn-primary:hover {
-            background-color: #218838;
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
         }
 
     .btn-secondary {
-        background-color: #f0ad4e;
+        background: #f39c12;
+        box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3);
     }
 
         .btn-secondary:hover {
-            background-color: #ec971f;
+            background: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(243, 156, 18, 0.4);
         }
 
-
-    {
-        opacity: 0;
-        transform: translateY(50px);
+    .confetti-container {
+        position: absolute;
+        top: -20px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: -1;
     }
 
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    }
-
-    hr {
-        border-top: 1px solid #eee;
-        margin: 20px auto;
-        width: 80%;
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #f39c12;
+        opacity: 0.8;
+        border-radius: 50%;
     }
 </style>
 
-<div class="container">
-    <h2>Booking Confirmation</h2>
+<div class="container" id="confirmation-container">
+    <h2>🎉 Booking Confirmed! 🎉</h2>
     <div class="message">
-        <p>Your booking has been successfully confirmed!</p>
-        <p>Thank you for your reservation. We look forward to seeing you at the event!</p>
+        <p>Your booking was successful!</p>
+        <p>We can’t wait to see you at the event. 🎈</p>
     </div>
-
-    <hr />
 
     <div class="actions">
         <a href="/" class="btn btn-primary">Go to Home</a>
         <a href="/Events/Search" class="btn btn-secondary">Find More Events</a>
     </div>
+
+    <div class="confetti-container" id="confetti-container"></div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+    gsap.from("#confirmation-container", {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power2.out",
+    });
+
+    function generateConfetti() {
+        const container = document.getElementById("confetti-container");
+
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            confetti.style.left = Math.random() * 100 + "%";
+            confetti.style.backgroundColor = randomColor();
+            container.appendChild(confetti);
+
+            const duration = Math.random() * 3 + 2;
+            const startX = Math.random() * window.innerWidth;
+            const endX = startX + (Math.random() - 0.5) * 400;
+
+            gsap.fromTo(
+                confetti,
+                {
+                    y: -50,
+                    x: startX,
+                },
+                {
+                    y: window.innerHeight,
+                    x: endX,
+                    rotation: Math.random() * 360,
+                    duration: duration,
+                    ease: "power1.out",
+                    onComplete: () => {
+                        confetti.remove();
+                    },
+                }
+            );
+        }
+    }
+
+    function randomColor() {
+        const colors = ["#e74c3c", "#2ecc71", "#3498db", "#f39c12", "#9b59b6"];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    document.addEventListener("DOMContentLoaded", generateConfetti);
+</script>

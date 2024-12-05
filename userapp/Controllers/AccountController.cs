@@ -57,23 +57,21 @@ namespace UsersApp.Controllers
                     fullName = model.Name,
                     Email = model.Email,
                     UserName = model.Email,
-                    Role = model.Role // إضافة الدور للمستخدم
+                    Role = model.Role 
                 };
 
                 var result = await userManager.CreateAsync(users, model.Password);
 
                 if (result.Succeeded)
                 {
-                    // إضافة الدور للمستخدم بعد إنشاءه
+                    
                     await userManager.AddToRoleAsync(users, model.Role);
 
-                    // إذا كان المستخدم من نوع "User"، نقله إلى الصفحة الرئيسية
                     if (model.Role == "User")
                     {
                         return RedirectToAction("Login", "Account");
                     }
 
-                    // إذا كان المستخدم من نوع "Admin"، نقله إلى صفحة تسجيل الدخول
                     return RedirectToAction("Login", "Account");
                 }
                 else

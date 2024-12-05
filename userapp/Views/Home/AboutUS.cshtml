@@ -1,0 +1,173 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<div class="container about-us">
+    <h1 class="text-center">About Us</h1>
+    <p class="text-center lead">Discover more about our mission, vision, and how we’re committed to providing a seamless experience.</p>
+
+    <section class="mission">
+        <h2>Our Mission</h2>
+        <p>Our mission is to create a seamless event booking experience for everyone, everywhere. We aim to provide an easy-to-use platform that helps people easily find and book events that matter to them.</p>
+    </section>
+
+    <section class="vision">
+        <h2>Our Vision</h2>
+        <p>To be the world’s leading platform for discovering and attending events. We envision a future where everyone has access to unforgettable experiences.</p>
+    </section>
+
+    <section class="values">
+        <h2>Our Core Values</h2>
+        <ul>
+            <li><strong>Innovation:</strong> We strive to constantly innovate and improve.</li>
+            <li><strong>Integrity:</strong> We uphold transparency and honesty in all we do.</li>
+            <li><strong>Customer-Centric:</strong> We always put the user experience first.</li>
+        </ul>
+    </section>
+
+    <section class="testimonials">
+        <h2>User Testimonials</h2>
+        <div class="testimonial-item">
+            <p>"This platform made booking tickets so easy and hassle-free. I found exactly what I was looking for!"</p>
+            <span>- Sarah W.</span>
+        </div>
+        <div class="testimonial-item">
+            <p>"A fantastic experience. I’ll definitely be using this site again to book my next event!"</p>
+            <span>- James K.</span>
+        </div>
+    </section>
+
+    <section class="contact">
+        <h2>Contact Us</h2>
+        <p>If you have any questions, feel free to reach out. Our support team is always ready to assist you.</p>
+        <button class="contact-btn">Contact Support</button>
+    </section>
+</div>
+
+<style>
+    :root {
+        --primary-color: #4CAF50; 
+        --secondary-color: #607D8B; 
+        --accent-color: #2196F3; 
+        --background-color: #F4F7FA; 
+        --text-color: #333; 
+        --light-text-color: #888; 
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--background-color);
+        color: var(--text-color);
+    }
+
+    .container {
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: var(--box-shadow);
+        max-width: 900px;
+    }
+
+    h1, h2 {
+        color: var(--primary-color);
+        margin-bottom: 20px;
+    }
+
+    .lead {
+        font-size: 22px;
+        font-weight: 300;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 1.8;
+        color: var(--secondary-color);
+    }
+
+    
+    section {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: var(--box-shadow);
+        margin-bottom: 40px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        section:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+        }
+
+    h2 {
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+        h2:hover {
+            transform: translateY(-5px);
+            color: var(--accent-color);
+        }
+
+    
+    .testimonials {
+        background-color: #f9f9f9;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: var(--box-shadow);
+    }
+
+    .testimonial-item {
+        margin-bottom: 20px;
+        font-style: italic;
+    }
+
+        .testimonial-item span {
+            font-size: 16px;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+    
+    .contact-btn {
+        background-color: var(--primary-color);
+        color: #fff;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .contact-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+    
+    .mission {
+        background-color: var(--accent-color);
+        color: #fff;
+    }
+
+    .vision {
+        background-color: #80cbc4;
+        color: #fff;
+    }
+
+    .values {
+        background-color: #c5e1a5;
+        color: #fff;
+    }
+
+    .contact {
+        background-color: #fbc02d;
+        color: #fff;
+    }
+</style>

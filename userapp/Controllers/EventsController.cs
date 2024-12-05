@@ -21,13 +21,13 @@ namespace userapp.Controllers
             _context = context;
         }
 
-        // GET: Events
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Events.ToListAsync());
         }
 
-        // GET: Events/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -66,7 +66,7 @@ namespace userapp.Controllers
             return View(@event);
         }
 
-        // GET: Events/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -114,7 +114,7 @@ namespace userapp.Controllers
             return View(@event);
         }
 
-        // GET: Events/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,7 +132,7 @@ namespace userapp.Controllers
             return View(@event);
         }
 
-        // POST: Events/Delete/5
+        [HttpGet]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -154,7 +154,7 @@ namespace userapp.Controllers
 
         public IActionResult Search(string searchTerm, string category, DateTime? date)
         {
-            // البحث والتصفية بناءً على القيم المدخلة
+            
             var events = _context.Events.AsQueryable();
 
             if (!string.IsNullOrEmpty(searchTerm))
@@ -188,7 +188,7 @@ namespace userapp.Controllers
             return View(eventItem);
         }
 
-        // GET: Events/Booking/5
+        
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Booking(int id)
@@ -201,41 +201,37 @@ namespace userapp.Controllers
                 return NotFound();
             }
             
-            // إرجاع تفاصيل الحدث إلى الصفحة
+            
             return View(eventItem);
         }
 
-        // POST: Events/Booking/5
-        // POST: Events/Booking/5
-        // POST: Events/Booking/5
+        
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> BookTicket(int id, string fullName, string email, int numberOfTickets, string ticketType)
         {
             var eventItem = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // الحصول على UserId من Claims
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
             if (eventItem == null)
             {
                 return NotFound();
             }
 
-            // تحقق من توفر التذاكر
             if (numberOfTickets > eventItem.Capacity)
             {
                 ModelState.AddModelError("", "عدد التذاكر المطلوبة أكثر من المتاح.");
                 return View(eventItem);
             }
 
-            // حساب السعر الإجمالي
+            
             var ticketPrice = ticketType == "VIP" ? eventItem.VIPPrice : eventItem.RegularPrice;
             var totalPrice = numberOfTickets * ticketPrice;
 
-            // إنشاء الحجز وإضافة البيانات للجلسة أو TempData
             var booking = new Booking
             {
                 EventId = id,
-                UserId = userId,  // ربط الحجز بالمستخدم عبر UserId من Claims
+                UserId = userId,  
                 FullName = fullName,
                 Email = email,
                 NumberOfTickets = numberOfTickets,
@@ -244,7 +240,7 @@ namespace userapp.Controllers
                 BookingDate = DateTime.Now
             };
 
-            // حفظ البيانات في TempData
+            
             TempData["Booking"] = Newtonsoft.Json.JsonConvert.SerializeObject(booking);
 
             return RedirectToAction("Payment", new { id });
@@ -253,8 +249,7 @@ namespace userapp.Controllers
 
 
 
-        // POST: Events/ConfirmBooking/5
-        // POST: Events/ConfirmBooking/5
+        
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
@@ -268,7 +263,6 @@ namespace userapp.Controllers
 
             var booking = Newtonsoft.Json.JsonConvert.DeserializeObject<Booking>(bookingJson);
 
-            // التحقق من توفر التذاكر مرة أخرى
             var eventItem = await _context.Events.FirstOrDefaultAsync(e => e.Id == booking.EventId);
             if (eventItem == null || booking.NumberOfTickets > eventItem.Capacity)
             {
@@ -276,7 +270,6 @@ namespace userapp.Controllers
                 return RedirectToAction("Booking", new { id = booking.EventId });
             }
 
-            // حفظ الحجز في قاعدة البيانات
             _context.Bookings.Add(booking);
             Console.WriteLine("Booking is being saved...");
             await _context.SaveChangesAsync();
@@ -301,8 +294,7 @@ namespace userapp.Controllers
 
 
 
-        // عملية الدفع
-        // عملية الدفع
+        
         [HttpPost]
         public async Task<IActionResult> PaymentAsync(int bookingId, DeliveryInfo deliveryInfo, PaymentDetails paymentDetails)
         {
@@ -310,27 +302,26 @@ namespace userapp.Controllers
                 .Include(b => b.Event)
                 .FirstOrDefault(b => b.Id == bookingId);
 
-            if (booking == null || booking.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier)) // تحقق من أن الحجز يعود للمستخدم نفسه
+            if (booking == null || booking.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier)) 
             {
-                return NotFound(); // تأكد من وجود الحجز ومن أنه يعود للمستخدم نفسه
+                return NotFound(); 
             }
 
-            // تحقق من صحة البيانات المرسلة
+            
             if (!ModelState.IsValid)
             {
-                return View(); // إرجاع نفس الصفحة إذا كانت البيانات غير صحيحة
+                return View(); 
             }
 
-            // حفظ بيانات التوصيل والدفع
+            
             booking.DeliveryInfo = deliveryInfo;
             booking.PaymentDetails = paymentDetails;
 
-            _context.DeliveryInfos.Add(deliveryInfo); // حفظ بيانات التوصيل
-            _context.PaymentDetails.Add(paymentDetails); // حفظ بيانات الدفع
+            _context.DeliveryInfos.Add(deliveryInfo); 
+            _context.PaymentDetails.Add(paymentDetails); 
 
-            await _context.SaveChangesAsync(); // حفظ التغييرات في قاعدة البيانات
+            await _context.SaveChangesAsync(); 
 
-            // التوجيه إلى صفحة التأكيد باستخدام معرف الحجز
             return RedirectToAction("BookingConfirmation", new { id = booking.Id });
         }
 
@@ -341,16 +332,13 @@ namespace userapp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Payment"); // If validation fails, return the view with errors.
-            }
-
-            // Save delivery and payment details to the database.
+                return View("Payment"); 
+            } 
             _context.DeliveryInfos.Add(deliveryInfo);
             _context.PaymentDetails.Add(paymentDetails);
 
-            _context.SaveChanges(); // Commit changes.
+            _context.SaveChanges(); 
 
-            // Redirect to confirmation page.
             return RedirectToAction("BookingConfirmation", new { id = deliveryInfo.Id });
         }
 
@@ -358,8 +346,8 @@ namespace userapp.Controllers
         [HttpGet]
         public IActionResult BookingConfirmation(int id)
         {
-            // بدلاً من جلب بيانات الحجز من قاعدة البيانات، نعرض ببساطة الصفحة.
-            return View();  // مجرد إرجاع العرض بدون التفاعل مع البيانات.
+            
+            return View();  
         }
 
 
